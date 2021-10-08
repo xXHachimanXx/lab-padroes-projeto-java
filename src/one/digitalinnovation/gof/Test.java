@@ -1,5 +1,12 @@
 package one.digitalinnovation.gof;
 
+import one.digitalinnovation.gof.abstractfactory.AbstractFactory;
+import one.digitalinnovation.gof.abstractfactory.FactoryProvider;
+import one.digitalinnovation.gof.abstractfactory.animais.Cachorro;
+import one.digitalinnovation.gof.abstractfactory.animais.Pato;
+import one.digitalinnovation.gof.abstractfactory.cores.Amarelo;
+import one.digitalinnovation.gof.abstractfactory.cores.Cor;
+import one.digitalinnovation.gof.abstractfactory.cores.Vermelho;
 import one.digitalinnovation.gof.facade.Facade;
 import one.digitalinnovation.gof.singleton.SingletonEager;
 import one.digitalinnovation.gof.singleton.SingletonLazy;
@@ -15,7 +22,6 @@ public class Test {
 	public static void main(String[] args) {
 		
 		// Singleton
-		
 		SingletonLazy lazy = SingletonLazy.getInstancia();
 		System.out.println(lazy);
 		lazy = SingletonLazy.getInstancia();
@@ -52,6 +58,25 @@ public class Test {
 		
 		Facade facade = new Facade();
 		facade.migrarCliente("Venilton", "14801788");
+
+		// Abstract factory
+		AbstractFactory abstractFactory;
+
+		abstractFactory = FactoryProvider.getFactory("Cor");
+		Amarelo amarelo = (Amarelo) abstractFactory.create("Amarelo");
+		Vermelho vermelho = (Vermelho) abstractFactory.create("Vermelho");
+
+		abstractFactory = FactoryProvider.getFactory("Animal");
+		Cachorro cachorro = (Cachorro) abstractFactory.create("Cachorro");
+		Pato pato = (Pato) abstractFactory.create("Pato");
+
+		System.out.printf(
+				"O %s é %s e o %s é %s",
+				cachorro.getAnimal(),
+				vermelho.getCor(),
+				pato.getAnimal(),
+				amarelo.getCor()
+		);
 	}
 
 }
